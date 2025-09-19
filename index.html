@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Cálculo de Notas - Evaluación Continua</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', Arial, sans-serif;
+            background-color: #eee9e5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .main-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .sub-title {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 18px;
+        }
+
+        .selection-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .type-button {
+            padding: 20px 30px;
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .type-button.individual {
+            background-color: #196049;
+        }
+
+        .type-button.grupal {
+            background-color: #e03520;
+        }
+
+        .type-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .calculator {
+            display: none;
+            background-color: #ebbf20;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .type-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .type-badge {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .type-badge.individual {
+            background-color: #196049;
+        }
+
+        .type-badge.grupal {
+            background-color: #e03520;
+        }
+
+        .convocatoria {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .convocatoria h3 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .activities-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .activity-pair {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+
+        .activity-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .activity-label {
+            font-weight: bold;
+            min-width: 200px;
+            color: #333;
+        }
+
+        .activity-input {
+            width: 80px;
+            padding: 8px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .activity-input:disabled {
+            background-color: #e0e0e0;
+            color: #666;
+        }
+
+        .peso-text {
+            color: #666;
+            font-size: 14px;
+            min-width: 100px;
+            text-align: right;
+        }
+
+        .calculation-info {
+            background-color: #f0f8ff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 14px;
+            color: #333;
+            font-style: italic;
+        }
+
+        .total-container {
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .total-label {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .total-value {
+            font-size: 24px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 100px;
+            background-color: #f0f8ff;
+            color: #333;
+            border: 1px solid #ccc;
+        }
+
+        .aprobado {
+            background-color: #196049 !important;
+            color: white !important;
+        }
+
+        .suspenso {
+            background-color: #e03520 !important;
+            color: white !important;
+        }
+
+        .message {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .message.aprobado {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.suspenso {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .back-button {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #5a6268;
+        }
+
+        .pending-activities {
+            color: #e03520;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="main-title">GRADOS UEMC ONLINE</h1>
+        <h2 class="sub-title">Simulador de Cálculo de Notas - Evaluación Continua</h2>
+
+        <div id="selection" class="selection-container">
+            <button class="type-button individual" onclick="selectType('individual')">
+                Asignatura Individual
+            </button>
+            <button class="type-button grupal" onclick="selectType('grupal')">
+                Asignatura Grupal
+            </button>
+        </div>
+
+        <div id="calculator-individual" class="calculator">
+            <button class="back-button" onclick="backToSelection()">← Volver a selección</button>
+
+            <div class="type-header">
+                <div class="type-badge individual">Asignatura Individual</div>
+            </div>
+
+            <div class="convocatoria">
+                <h3>Convocatoria Ordinaria</h3>
+                <div class="activities-container">
+                    <div class="activity-pair">
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 1 (Entrega):</span>
+                            <input type="number" class="activity-input" id="ind-ord-act1" min="0" max="10" step="0.1" 
+                                   oninput="calculateIndividual('ordinaria')">
+                            <span class="peso-text">Peso: 30%</span>
+                        </div>
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 2 (Defensa):</span>
+                            <input type="number" class="activity-input" id="ind-ord-act2" min="0" max="10" step="0.1" 
+                                   oninput="calculateIndividual('ordinaria')">
+                            <span class="peso-text">Peso: 20%</span>
+                        </div>
+                        <div class="calculation-info" id="ind-ord-info12"></div>
+                    </div>
+
+                    <div class="activity-pair">
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 3 (Entrega):</span>
+                            <input type="number" class="activity-input" id="ind-ord-act3" min="0" max="10" step="0.1" 
+                                   oninput="calculateIndividual('ordinaria')">
+                            <span class="peso-text">Peso: 30%</span>
+                        </div>
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 4 (Defensa):</span>
+                            <input type="number" class="activity-input" id="ind-ord-act4" min="0" max="10" step="0.1" 
+                                   oninput="calculateIndividual('ordinaria')">
+                            <span class="peso-text">Peso: 20%</span>
+                        </div>
+                        <div class="calculation-info" id="ind-ord-info34"></div>
+                    </div>
+                </div>
+
+                <div class="total-container">
+                    <div class="total-label">Total Evaluación Continua - Ordinaria</div>
+                    <div class="total-value" id="ind-ord-total">--</div>
+                    <div class="message" id="ind-ord-message"></div>
+                </div>
+            </div>
+
+            <div class="convocatoria">
+                <h3>Convocatoria Extraordinaria</h3>
+                <div class="activities-container">
+                    <div class="activity-pair">
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 1 (Entrega):</span>
+                            <input type="number" class="activity-input" id="ind-ext-act1" min="0" max="10" step="0.1" 
+                                   oninput="calculateIndividual('extraordinaria')">
+                            <span class="peso-text">Peso: 30%</span>
+                        </div>
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 2 (Defensa):</span>
+                            <input type="number" class="activity-input" id="ind-ext-act2" min="0" max="10" step="0.1" 
+                                   oninput="calculateIndividual('extraordinaria')">
+                            <span class="peso-text">Peso: 20%</span>
+                        </div>
+                        <div class="calculation-info" id="ind-ext-info12"></div>
+                    </div>
+
+                    <div class="activity-pair">
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 3 (Entrega):</span>
+                            <input type="number" class="activity-input" id="ind-ext-act3" min="0" max="10" step="0.1" 
+                                   oninput="calculateIndividual('extraordinaria')">
+                            <span class="peso-text">Peso: 30%</span>
+                        </div>
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 4 (Defensa):</span>
+                            <input type="number" class="activity-input" id="ind-ext-act4" min="0" max="10" step="0.1" 
+                                   oninput="calculateIndividual('extraordinaria')">
+                            <span class="peso-text">Peso: 20%</span>
+                        </div>
+                        <div class="calculation-info" id="ind-ext-info34"></div>
+                    </div>
+                </div>
+
+                <div class="total-container">
+                    <div class="total-label">Total Evaluación Continua - Extraordinaria</div>
+                    <div class="total-value" id="ind-ext-total">--</div>
+                    <div class="message" id="ind-ext-message"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="calculator-grupal" class="calculator">
+            <button class="back-button" onclick="backToSelection()">← Volver a selección</button>
+
+            <div class="type-header">
+                <div class="type-badge grupal">Asignatura Grupal</div>
+            </div>
+
+            <div class="convocatoria">
+                <h3>Convocatoria Ordinaria</h3>
+                <div class="activities-container">
+                    <div class="activity-pair">
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 1 (Foro):</span>
+                            <input type="number" class="activity-input" id="grp-ord-act1" min="0" max="10" step="0.1" 
+                                   oninput="calculateGrupal('ordinaria')">
+                            <span class="peso-text">Peso: 20%</span>
+                        </div>
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 2 (Defensa):</span>
+                            <input type="number" class="activity-input" id="grp-ord-act2" min="0" max="10" step="0.1" 
+                                   oninput="calculateGrupal('ordinaria')">
+                            <span class="peso-text">Peso: 20%</span>
+                        </div>
+                        <div class="calculation-info" id="grp-ord-info12"></div>
+                    </div>
+
+                    <div class="activity-pair">
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 3 (Entrega):</span>
+                            <input type="number" class="activity-input" id="grp-ord-act3" min="0" max="10" step="0.1" 
+                                   oninput="calculateGrupal('ordinaria')">
+                            <span class="peso-text">Peso: 40%</span>
+                        </div>
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 4 (Defensa):</span>
+                            <input type="number" class="activity-input" id="grp-ord-act4" min="0" max="10" step="0.1" 
+                                   oninput="calculateGrupal('ordinaria')">
+                            <span class="peso-text">Peso: 20%</span>
+                        </div>
+                        <div class="calculation-info" id="grp-ord-info34"></div>
+                    </div>
+                </div>
+
+                <div class="total-container">
+                    <div class="total-label">Total Evaluación Continua - Ordinaria</div>
+                    <div class="total-value" id="grp-ord-total">--</div>
+                    <div class="message" id="grp-ord-message"></div>
+                </div>
+            </div>
+
+            <div class="convocatoria">
+                <h3>Convocatoria Extraordinaria</h3>
+                <div class="activities-container">
+                    <div class="activity-pair">
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 1 (Foro):</span>
+                            <input type="number" class="activity-input" id="grp-ext-act1" min="0" max="10" step="0.1" 
+                                   oninput="calculateGrupal('extraordinaria')">
+                            <span class="peso-text">Peso: 20%</span>
+                        </div>
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 2 (Defensa):</span>
+                            <input type="number" class="activity-input" id="grp-ext-act2" min="0" max="10" step="0.1" 
+                                   oninput="calculateGrupal('extraordinaria')">
+                            <span class="peso-text">Peso: 20%</span>
+                        </div>
+                        <div class="calculation-info" id="grp-ext-info12"></div>
+                    </div>
+
+                    <div class="activity-pair">
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 3 (Entrega):</span>
+                            <input type="number" class="activity-input" id="grp-ext-act3" min="0" max="10" step="0.1" 
+                                   oninput="calculateGrupal('extraordinaria')">
+                            <span class="peso-text">Peso: 40%</span>
+                        </div>
+                        <div class="activity-row">
+                            <span class="activity-label">Actividad 4 (Defensa):</span>
+                            <input type="number" class="activity-input" id="grp-ext-act4" min="0" max="10" step="0.1" 
+                                   oninput="calculateGrupal('extraordinaria')">
+                            <span class="peso-text">Peso: 20%</span>
+                        </div>
+                        <div class="calculation-info" id="grp-ext-info34"></div>
+                    </div>
+                </div>
+
+                <div class="total-container">
+                    <div class="total-label">Total Evaluación Continua - Extraordinaria</div>
+                    <div class="total-value" id="grp-ext-total">--</div>
+                    <div class="message" id="grp-ext-message"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Objeto para almacenar las notas de cada convocatoria
+        let notasIndividual = {
+            ordinaria: { parte1: null, parte2: null, total: null },
+            extraordinaria: { parte1: null, parte2: null, total: null }
+        };
+
+        let notasGrupal = {
+            ordinaria: { parte1: null, parte2: null, total: null },
+            extraordinaria: { parte1: null, parte2: null, total: null }
+        };
+
+        function selectType(type) {
+            document.getElementById('selection').style.display = 'none';
+            if (type === 'individual') {
+                document.getElementById('calculator-individual').style.display = 'block';
+                initializeExtraordinaria('individual');
+            } else {
+                document.getElementById('calculator-grupal').style.display = 'block';
+                initializeExtraordinaria('grupal');
+            }
+        }
+
+        function backToSelection() {
+            document.getElementById('selection').style.display = 'flex';
+            document.getElementById('calculator-individual').style.display = 'none';
+            document.getElementById('calculator-grupal').style.display = 'none';
+            // Limpiar todos los inputs
+            clearAllInputs();
+        }
+
+        function clearAllInputs() {
+            const inputs = document.querySelectorAll('.activity-input');
+            inputs.forEach(input => {
+                input.value = '';
+                input.disabled = false;
+                input.style.backgroundColor = '';
+            });
+
+            // Resetear todas las casillas de total a su estado inicial (azul claro)
+            const totals = document.querySelectorAll('.total-value');
+            totals.forEach(total => {
+                total.textContent = '--';
+                total.className = 'total-value'; // Esto aplicará el estilo por defecto (azul claro)
+            });
+
+            const messages = document.querySelectorAll('.message');
+            messages.forEach(msg => msg.innerHTML = '');
+
+            const infos = document.querySelectorAll('.calculation-info');
+            infos.forEach(info => info.innerHTML = '');
+
+            // Resetear objetos de notas
+            notasIndividual = {
+                ordinaria: { parte1: null, parte2: null, total: null },
+                extraordinaria: { parte1: null, parte2: null, total: null }
+            };
+            notasGrupal = {
+                ordinaria: { parte1: null, parte2: null, total: null },
+                extraordinaria: { parte1: null, parte2: null, total: null }
+            };
+        }
+
+        function initializeExtraordinaria(type) {
+            // Deshabilitar todos los campos de extraordinaria inicialmente
+            const prefix = type === 'individual' ? 'ind' : 'grp';
+            const extInputs = [
+                `${prefix}-ext-act1`, `${prefix}-ext-act2`, 
+                `${prefix}-ext-act3`, `${prefix}-ext-act4`
+            ];
+
+            extInputs.forEach(id => {
+                const input = document.getElementById(id);
+                input.disabled = true;
+                input.style.backgroundColor = '#e0e0e0';
+            });
+
+            // Inicializar las casillas de total en su estado por defecto (azul claro)
+            document.getElementById(`${prefix}-ext-total`).className = 'total-value';
+            document.getElementById(`${prefix}-ord-total`).className = 'total-value';
+        }
+
+        function calculatePairScore(entrega, defensa, pesoEntrega, pesoDefensa) {
+            const entregaNum = parseFloat(entrega) || 0;
+            const defensaNum = parseFloat(defensa) || 0;
+
+            if (entrega === '' || defensa === '') {
+                return { score: null, explanation: '' };
+            }
+
+            let score;
+            let explanation;
+
+            if (entregaNum >= 5 && defensaNum >= 4) {
+                // Caso 1: Ambas superan mínimos - promedio ponderado
+                score = entregaNum * pesoEntrega + defensaNum * pesoDefensa;
+                explanation = `Entrega ≥5 y Defensa ≥4: Se calcula promedio ponderado (${entregaNum} × ${pesoEntrega} + ${defensaNum} × ${pesoDefensa} = ${score.toFixed(1)})`;
+            } else if (entregaNum < 5 && defensaNum >= 4) {
+                // Caso 2: Entrega no supera mínimo pero defensa sí
+                score = entregaNum;
+                explanation = `Entrega <5 y Defensa ≥4: Se toma la nota de entrega (${entregaNum})`;
+            } else if (entregaNum >= 5 && defensaNum < 4) {
+                // Caso 3: Entrega supera mínimo pero defensa no
+                score = defensaNum;
+                explanation = `Entrega ≥5 y Defensa <4: Se toma la nota de defensa (${defensaNum})`;
+            } else {
+                // Caso 4: Ninguna supera mínimos - promedio ponderado
+                score = entregaNum * pesoEntrega + defensaNum * pesoDefensa;
+                explanation = `Entrega <5 y Defensa <4: Se calcula promedio ponderado (${entregaNum} × ${pesoEntrega} + ${defensaNum} × ${pesoDefensa} = ${score.toFixed(1)})`;
+            }
+
+            return { score: score, explanation: explanation };
+        }
+
+        function calculateIndividual(convocatoria) {
+            const prefix = convocatoria === 'ordinaria' ? 'ind-ord' : 'ind-ext';
+
+            const act1 = document.getElementById(`${prefix}-act1`).value;
+            const act2 = document.getElementById(`${prefix}-act2`).value;
+            const act3 = document.getElementById(`${prefix}-act3`).value;
+            const act4 = document.getElementById(`${prefix}-act4`).value;
+
+            // Calcular Parte 1 (Actividades 1+2)
+            const parte1 = calculatePairScore(act1, act2, 0.6, 0.4);
+            if (parte1.score !== null) {
+                document.getElementById(`${prefix}-info12`).innerHTML = parte1.explanation;
+                notasIndividual[convocatoria].parte1 = parte1.score;
+            } else {
+                document.getElementById(`${prefix}-info12`).innerHTML = '';
+                notasIndividual[convocatoria].parte1 = null;
+            }
+
+            // Calcular Parte 2 (Actividades 3+4)
+            const parte2 = calculatePairScore(act3, act4, 0.6, 0.4);
+            if (parte2.score !== null) {
+                document.getElementById(`${prefix}-info34`).innerHTML = parte2.explanation;
+                notasIndividual[convocatoria].parte2 = parte2.score;
+            } else {
+                document.getElementById(`${prefix}-info34`).innerHTML = '';
+                notasIndividual[convocatoria].parte2 = null;
+            }
+
+            // Calcular total
+            if (notasIndividual[convocatoria].parte1 !== null && notasIndividual[convocatoria].parte2 !== null) {
+                const total = (notasIndividual[convocatoria].parte1 * 0.5 + notasIndividual[convocatoria].parte2 * 0.5);
+                notasIndividual[convocatoria].total = Math.round(total * 10) / 10;
+
+                const totalElement = document.getElementById(`${prefix}-total`);
+                totalElement.textContent = notasIndividual[convocatoria].total.toFixed(1);
+
+                // Aplicar color según aprobación
+                if (notasIndividual[convocatoria].total >= 5) {
+                    totalElement.className = 'total-value aprobado';
+                } else {
+                    totalElement.className = 'total-value suspenso';
+                }
+
+                updateMessage('individual', convocatoria);
+            } else {
+                // Si no hay datos suficientes, volver al estado inicial (azul claro)
+                const totalElement = document.getElementById(`${prefix}-total`);
+                totalElement.textContent = '--';
+                totalElement.className = 'total-value';
+            }
+
+            // Si estamos en ordinaria, actualizar extraordinaria
+            if (convocatoria === 'ordinaria') {
+                updateExtraordinaria('individual');
+            }
+        }
+
+        function calculateGrupal(convocatoria) {
+            const prefix = convocatoria === 'ordinaria' ? 'grp-ord' : 'grp-ext';
+
+            const act1 = document.getElementById(`${prefix}-act1`).value;
+            const act2 = document.getElementById(`${prefix}-act2`).value;
+            const act3 = document.getElementById(`${prefix}-act3`).value;
+            const act4 = document.getElementById(`${prefix}-act4`).value;
+
+            // Calcular Parte 1 (Actividades 1+2) - Para grupal, 50%-50%
+            const parte1 = calculatePairScore(act1, act2, 0.5, 0.5);
+            if (parte1.score !== null) {
+                document.getElementById(`${prefix}-info12`).innerHTML = parte1.explanation;
+                notasGrupal[convocatoria].parte1 = parte1.score;
+            } else {
+                document.getElementById(`${prefix}-info12`).innerHTML = '';
+                notasGrupal[convocatoria].parte1 = null;
+            }
+
+            // Calcular Parte 2 (Actividades 3+4) - Para grupal, 66.67%-33.33%
+            const parte2 = calculatePairScore(act3, act4, 0.6667, 0.3333);
+            if (parte2.score !== null) {
+                document.getElementById(`${prefix}-info34`).innerHTML = parte2.explanation;
+                notasGrupal[convocatoria].parte2 = parte2.score;
+            } else {
+                document.getElementById(`${prefix}-info34`).innerHTML = '';
+                notasGrupal[convocatoria].parte2 = null;
+            }
+
+            // Calcular total - Para grupal: Parte1 40%, Parte2 60%
+            if (notasGrupal[convocatoria].parte1 !== null && notasGrupal[convocatoria].parte2 !== null) {
+                const total = (notasGrupal[convocatoria].parte1 * 0.4 + notasGrupal[convocatoria].parte2 * 0.6);
+                notasGrupal[convocatoria].total = Math.round(total * 10) / 10;
+
+                const totalElement = document.getElementById(`${prefix}-total`);
+                totalElement.textContent = notasGrupal[convocatoria].total.toFixed(1);
+
+                // Aplicar color según aprobación
+                if (notasGrupal[convocatoria].total >= 5) {
+                    totalElement.className = 'total-value aprobado';
+                } else {
+                    totalElement.className = 'total-value suspenso';
+                }
+
+                updateMessage('grupal', convocatoria);
+            } else {
+                // Si no hay datos suficientes, volver al estado inicial (azul claro)
+                const totalElement = document.getElementById(`${prefix}-total`);
+                totalElement.textContent = '--';
+                totalElement.className = 'total-value';
+            }
+
+            // Si estamos en ordinaria, actualizar extraordinaria
+            if (convocatoria === 'ordinaria') {
+                updateExtraordinaria('grupal');
+            }
+        }
+
+        function updateMessage(type, convocatoria) {
+            const prefix = type === 'individual' ? 'ind' : 'grp';
+            const convPrefix = convocatoria === 'ordinaria' ? 'ord' : 'ext';
+            const messageElement = document.getElementById(`${prefix}-${convPrefix}-message`);
+            const notas = type === 'individual' ? notasIndividual : notasGrupal;
+
+            if (notas[convocatoria].total >= 5) {
+                messageElement.innerHTML = 'Evaluación continua aprobada';
+                messageElement.className = 'message aprobado';
+            } else {
+                let pendingActivities = [];
+
+                // Verificar qué actividades están pendientes para extraordinaria
+                if (convocatoria === 'ordinaria') {
+                    if (notas.ordinaria.parte1 < 5) {
+                        pendingActivities.push('Actividades 1 y 2');
+                    }
+                    if (notas.ordinaria.parte2 < 5) {
+                        pendingActivities.push('Actividades 3 y 4');
+                    }
+
+                    messageElement.innerHTML = `Evaluación continua suspensa. Debes realizar las siguientes actividades en convocatoria Extraordinaria: <span class="pending-activities">${pendingActivities.join(', ')}</span>`;
+                } else {
+                    messageElement.innerHTML = 'Evaluación continua suspensa';
+                }
+                messageElement.className = 'message suspenso';
+            }
+        }
+
+        function updateExtraordinaria(type) {
+            const prefix = type === 'individual' ? 'ind' : 'grp';
+            const notas = type === 'individual' ? notasIndividual : notasGrupal;
+
+            // Solo proceder si tenemos nota total de ordinaria
+            if (notas.ordinaria.total === null) return;
+
+            // Si apruebas en ordinaria, no necesitas extraordinaria
+            if (notas.ordinaria.total >= 5) {
+                // Deshabilitar todos los campos de extraordinaria
+                const extInputs = [`${prefix}-ext-act1`, `${prefix}-ext-act2`, `${prefix}-ext-act3`, `${prefix}-ext-act4`];
+                extInputs.forEach(id => {
+                    const input = document.getElementById(id);
+                    input.disabled = true;
+                    input.style.backgroundColor = '#e0e0e0';
+                    input.value = '';
+                });
+
+                // Copiar nota de ordinaria a extraordinaria con color aprobado
+                const totalElement = document.getElementById(`${prefix}-ext-total`);
+                totalElement.textContent = notas.ordinaria.total.toFixed(1);
+                totalElement.className = 'total-value aprobado';
+
+                const messageElement = document.getElementById(`${prefix}-ext-message`);
+                messageElement.innerHTML = 'Evaluación continua aprobada (nota de ordinaria)';
+                messageElement.className = 'message aprobado';
+
+                return;
+            }
+
+            // Si suspendes en ordinaria, habilitar solo las actividades necesarias
+
+            // Parte 1: Si aprobaste la parte 1 en ordinaria, bloquear actividades 1 y 2
+            if (notas.ordinaria.parte1 >= 5) {
+                document.getElementById(`${prefix}-ext-act1`).disabled = true;
+                document.getElementById(`${prefix}-ext-act1`).style.backgroundColor = '#e0e0e0';
+                document.getElementById(`${prefix}-ext-act1`).value = '';
+
+                document.getElementById(`${prefix}-ext-act2`).disabled = true;
+                document.getElementById(`${prefix}-ext-act2`).style.backgroundColor = '#e0e0e0';
+                document.getElementById(`${prefix}-ext-act2`).value = '';
+
+                // Usar la nota de ordinaria para esta parte
+                notas.extraordinaria.parte1 = notas.ordinaria.parte1;
+                document.getElementById(`${prefix}-ext-info12`).innerHTML = `Parte 1 aprobada en ordinaria: ${notas.ordinaria.parte1.toFixed(1)}`;
+            } else {
+                // Habilitar actividades 1 y 2
+                document.getElementById(`${prefix}-ext-act1`).disabled = false;
+                document.getElementById(`${prefix}-ext-act1`).style.backgroundColor = '';
+
+                document.getElementById(`${prefix}-ext-act2`).disabled = false;
+                document.getElementById(`${prefix}-ext-act2`).style.backgroundColor = '';
+            }
+
+            // Parte 2: Si aprobaste la parte 2 en ordinaria, bloquear actividades 3 y 4
+            if (notas.ordinaria.parte2 >= 5) {
+                document.getElementById(`${prefix}-ext-act3`).disabled = true;
+                document.getElementById(`${prefix}-ext-act3`).style.backgroundColor = '#e0e0e0';
+                document.getElementById(`${prefix}-ext-act3`).value = '';
+
+                document.getElementById(`${prefix}-ext-act4`).disabled = true;
+                document.getElementById(`${prefix}-ext-act4`).style.backgroundColor = '#e0e0e0';
+                document.getElementById(`${prefix}-ext-act4`).value = '';
+
+                // Usar la nota de ordinaria para esta parte
+                notas.extraordinaria.parte2 = notas.ordinaria.parte2;
+                document.getElementById(`${prefix}-ext-info34`).innerHTML = `Parte 2 aprobada en ordinaria: ${notas.ordinaria.parte2.toFixed(1)}`;
+            } else {
+                // Habilitar actividades 3 y 4
+                document.getElementById(`${prefix}-ext-act3`).disabled = false;
+                document.getElementById(`${prefix}-ext-act3`).style.backgroundColor = '';
+
+                document.getElementById(`${prefix}-ext-act4`).disabled = false;
+                document.getElementById(`${prefix}-ext-act4`).style.backgroundColor = '';
+            }
+
+            // Resetear el total de extraordinaria a estado inicial
+            const totalElementExt = document.getElementById(`${prefix}-ext-total`);
+            totalElementExt.textContent = '--';
+            totalElementExt.className = 'total-value';
+
+            // Recalcular el total de extraordinaria si tenemos ambas partes
+            if (notas.extraordinaria.parte1 !== null && notas.extraordinaria.parte2 !== null) {
+                if (type === 'individual') {
+                    const total = (notas.extraordinaria.parte1 * 0.5 + notas.extraordinaria.parte2 * 0.5);
+                    notas.extraordinaria.total = Math.round(total * 10) / 10;
+                } else {
+                    const total = (notas.extraordinaria.parte1 * 0.4 + notas.extraordinaria.parte2 * 0.6);
+                    notas.extraordinaria.total = Math.round(total * 10) / 10;
+                }
+
+                totalElementExt.textContent = notas.extraordinaria.total.toFixed(1);
+
+                if (notas.extraordinaria.total >= 5) {
+                    totalElementExt.className = 'total-value aprobado';
+                } else {
+                    totalElementExt.className = 'total-value suspenso';
+                }
+
+                updateMessage(type, 'extraordinaria');
+            }
+        }
+    </script>
+</body>
+</html>
