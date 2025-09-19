@@ -76,7 +76,7 @@
 
         .calculator {
             display: none;
-            background-color: #ebbf20;
+            background-color: #eaeade;
             border-radius: 15px;
             padding: 25px;
             margin-top: 20px;
@@ -246,7 +246,7 @@
         }
 
         .pending-activities {
-            color: #e03520;
+            color: white;
             font-weight: bold;
         }
     </style>
@@ -278,14 +278,16 @@
                     <div class="activity-pair">
                         <div class="activity-row">
                             <span class="activity-label">Actividad 1 (Entrega):</span>
-                            <input type="number" class="activity-input" id="ind-ord-act1" min="0" max="10" step="0.1" 
-                                   oninput="calculateIndividual('ordinaria')">
+                            <input type="text" class="activity-input" id="ind-ord-act1" 
+                                   oninput="validateInput(this); calculateIndividual('ordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 30%</span>
                         </div>
                         <div class="activity-row">
                             <span class="activity-label">Actividad 2 (Defensa):</span>
-                            <input type="number" class="activity-input" id="ind-ord-act2" min="0" max="10" step="0.1" 
-                                   oninput="calculateIndividual('ordinaria')">
+                            <input type="text" class="activity-input" id="ind-ord-act2" 
+                                   oninput="validateInput(this); calculateIndividual('ordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 20%</span>
                         </div>
                         <div class="calculation-info" id="ind-ord-info12"></div>
@@ -294,14 +296,16 @@
                     <div class="activity-pair">
                         <div class="activity-row">
                             <span class="activity-label">Actividad 3 (Entrega):</span>
-                            <input type="number" class="activity-input" id="ind-ord-act3" min="0" max="10" step="0.1" 
-                                   oninput="calculateIndividual('ordinaria')">
+                            <input type="text" class="activity-input" id="ind-ord-act3" 
+                                   oninput="validateInput(this); calculateIndividual('ordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 30%</span>
                         </div>
                         <div class="activity-row">
                             <span class="activity-label">Actividad 4 (Defensa):</span>
-                            <input type="number" class="activity-input" id="ind-ord-act4" min="0" max="10" step="0.1" 
-                                   oninput="calculateIndividual('ordinaria')">
+                            <input type="text" class="activity-input" id="ind-ord-act4" 
+                                   oninput="validateInput(this); calculateIndividual('ordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 20%</span>
                         </div>
                         <div class="calculation-info" id="ind-ord-info34"></div>
@@ -321,14 +325,16 @@
                     <div class="activity-pair">
                         <div class="activity-row">
                             <span class="activity-label">Actividad 1 (Entrega):</span>
-                            <input type="number" class="activity-input" id="ind-ext-act1" min="0" max="10" step="0.1" 
-                                   oninput="calculateIndividual('extraordinaria')">
+                            <input type="text" class="activity-input" id="ind-ext-act1" 
+                                   oninput="validateInput(this); calculateIndividual('extraordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 30%</span>
                         </div>
                         <div class="activity-row">
                             <span class="activity-label">Actividad 2 (Defensa):</span>
-                            <input type="number" class="activity-input" id="ind-ext-act2" min="0" max="10" step="0.1" 
-                                   oninput="calculateIndividual('extraordinaria')">
+                            <input type="text" class="activity-input" id="ind-ext-act2" 
+                                   oninput="validateInput(this); calculateIndividual('extraordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 20%</span>
                         </div>
                         <div class="calculation-info" id="ind-ext-info12"></div>
@@ -337,14 +343,16 @@
                     <div class="activity-pair">
                         <div class="activity-row">
                             <span class="activity-label">Actividad 3 (Entrega):</span>
-                            <input type="number" class="activity-input" id="ind-ext-act3" min="0" max="10" step="0.1" 
-                                   oninput="calculateIndividual('extraordinaria')">
+                            <input type="text" class="activity-input" id="ind-ext-act3" 
+                                   oninput="validateInput(this); calculateIndividual('extraordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 30%</span>
                         </div>
                         <div class="activity-row">
                             <span class="activity-label">Actividad 4 (Defensa):</span>
-                            <input type="number" class="activity-input" id="ind-ext-act4" min="0" max="10" step="0.1" 
-                                   oninput="calculateIndividual('extraordinaria')">
+                            <input type="text" class="activity-input" id="ind-ext-act4" 
+                                   oninput="validateInput(this); calculateIndividual('extraordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 20%</span>
                         </div>
                         <div class="calculation-info" id="ind-ext-info34"></div>
@@ -372,14 +380,16 @@
                     <div class="activity-pair">
                         <div class="activity-row">
                             <span class="activity-label">Actividad 1 (Foro):</span>
-                            <input type="number" class="activity-input" id="grp-ord-act1" min="0" max="10" step="0.1" 
-                                   oninput="calculateGrupal('ordinaria')">
+                            <input type="text" class="activity-input" id="grp-ord-act1" 
+                                   oninput="validateInput(this); calculateGrupal('ordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 20%</span>
                         </div>
                         <div class="activity-row">
                             <span class="activity-label">Actividad 2 (Defensa):</span>
-                            <input type="number" class="activity-input" id="grp-ord-act2" min="0" max="10" step="0.1" 
-                                   oninput="calculateGrupal('ordinaria')">
+                            <input type="text" class="activity-input" id="grp-ord-act2" 
+                                   oninput="validateInput(this); calculateGrupal('ordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 20%</span>
                         </div>
                         <div class="calculation-info" id="grp-ord-info12"></div>
@@ -388,14 +398,16 @@
                     <div class="activity-pair">
                         <div class="activity-row">
                             <span class="activity-label">Actividad 3 (Entrega):</span>
-                            <input type="number" class="activity-input" id="grp-ord-act3" min="0" max="10" step="0.1" 
-                                   oninput="calculateGrupal('ordinaria')">
+                            <input type="text" class="activity-input" id="grp-ord-act3" 
+                                   oninput="validateInput(this); calculateGrupal('ordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 40%</span>
                         </div>
                         <div class="activity-row">
                             <span class="activity-label">Actividad 4 (Defensa):</span>
-                            <input type="number" class="activity-input" id="grp-ord-act4" min="0" max="10" step="0.1" 
-                                   oninput="calculateGrupal('ordinaria')">
+                            <input type="text" class="activity-input" id="grp-ord-act4" 
+                                   oninput="validateInput(this); calculateGrupal('ordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 20%</span>
                         </div>
                         <div class="calculation-info" id="grp-ord-info34"></div>
@@ -415,14 +427,16 @@
                     <div class="activity-pair">
                         <div class="activity-row">
                             <span class="activity-label">Actividad 1 (Foro):</span>
-                            <input type="number" class="activity-input" id="grp-ext-act1" min="0" max="10" step="0.1" 
-                                   oninput="calculateGrupal('extraordinaria')">
+                            <input type="text" class="activity-input" id="grp-ext-act1" 
+                                   oninput="validateInput(this); calculateGrupal('extraordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 20%</span>
                         </div>
                         <div class="activity-row">
                             <span class="activity-label">Actividad 2 (Defensa):</span>
-                            <input type="number" class="activity-input" id="grp-ext-act2" min="0" max="10" step="0.1" 
-                                   oninput="calculateGrupal('extraordinaria')">
+                            <input type="text" class="activity-input" id="grp-ext-act2" 
+                                   oninput="validateInput(this); calculateGrupal('extraordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 20%</span>
                         </div>
                         <div class="calculation-info" id="grp-ext-info12"></div>
@@ -431,14 +445,16 @@
                     <div class="activity-pair">
                         <div class="activity-row">
                             <span class="activity-label">Actividad 3 (Entrega):</span>
-                            <input type="number" class="activity-input" id="grp-ext-act3" min="0" max="10" step="0.1" 
-                                   oninput="calculateGrupal('extraordinaria')">
+                            <input type="text" class="activity-input" id="grp-ext-act3" 
+                                   oninput="validateInput(this); calculateGrupal('extraordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 40%</span>
                         </div>
                         <div class="activity-row">
                             <span class="activity-label">Actividad 4 (Defensa):</span>
-                            <input type="number" class="activity-input" id="grp-ext-act4" min="0" max="10" step="0.1" 
-                                   oninput="calculateGrupal('extraordinaria')">
+                            <input type="text" class="activity-input" id="grp-ext-act4" 
+                                   oninput="validateInput(this); calculateGrupal('extraordinaria')"
+                                   placeholder="0.0">
                             <span class="peso-text">Peso: 20%</span>
                         </div>
                         <div class="calculation-info" id="grp-ext-info34"></div>
@@ -466,6 +482,42 @@
             extraordinaria: { parte1: null, parte2: null, total: null }
         };
 
+        // Función para validar entrada de números con un decimal máximo
+        function validateInput(input) {
+            let value = input.value;
+
+            // Reemplazar coma por punto
+            value = value.replace(',', '.');
+
+            // Eliminar caracteres no válidos (solo números y punto)
+            value = value.replace(/[^0-9.]/g, '');
+
+            // Asegurar que solo haya un punto decimal
+            const parts = value.split('.');
+            if (parts.length > 2) {
+                value = parts[0] + '.' + parts.slice(1).join('');
+            }
+
+            // Limitar a un decimal
+            if (parts[1] && parts[1].length > 1) {
+                value = parts[0] + '.' + parts[1].substring(0, 1);
+            }
+
+            // Convertir a número y validar rango
+            const num = parseFloat(value);
+            if (!isNaN(num) && num > 10) {
+                value = '10.0';
+            }
+
+            // Actualizar el valor del input
+            input.value = value;
+        }
+
+        // Función de redondeo personalizado (5 hacia arriba)
+        function roundToOneDecimal(num) {
+            return Math.round(num * 10) / 10;
+        }
+
         function selectType(type) {
             document.getElementById('selection').style.display = 'none';
             if (type === 'individual') {
@@ -481,7 +533,6 @@
             document.getElementById('selection').style.display = 'flex';
             document.getElementById('calculator-individual').style.display = 'none';
             document.getElementById('calculator-grupal').style.display = 'none';
-            // Limpiar todos los inputs
             clearAllInputs();
         }
 
@@ -493,11 +544,10 @@
                 input.style.backgroundColor = '';
             });
 
-            // Resetear todas las casillas de total a su estado inicial (azul claro)
             const totals = document.querySelectorAll('.total-value');
             totals.forEach(total => {
                 total.textContent = '--';
-                total.className = 'total-value'; // Esto aplicará el estilo por defecto (azul claro)
+                total.className = 'total-value';
             });
 
             const messages = document.querySelectorAll('.message');
@@ -506,7 +556,6 @@
             const infos = document.querySelectorAll('.calculation-info');
             infos.forEach(info => info.innerHTML = '');
 
-            // Resetear objetos de notas
             notasIndividual = {
                 ordinaria: { parte1: null, parte2: null, total: null },
                 extraordinaria: { parte1: null, parte2: null, total: null }
@@ -518,7 +567,6 @@
         }
 
         function initializeExtraordinaria(type) {
-            // Deshabilitar todos los campos de extraordinaria inicialmente
             const prefix = type === 'individual' ? 'ind' : 'grp';
             const extInputs = [
                 `${prefix}-ext-act1`, `${prefix}-ext-act2`, 
@@ -531,7 +579,6 @@
                 input.style.backgroundColor = '#e0e0e0';
             });
 
-            // Inicializar las casillas de total en su estado por defecto (azul claro)
             document.getElementById(`${prefix}-ext-total`).className = 'total-value';
             document.getElementById(`${prefix}-ord-total`).className = 'total-value';
         }
@@ -548,24 +595,20 @@
             let explanation;
 
             if (entregaNum >= 5 && defensaNum >= 4) {
-                // Caso 1: Ambas superan mínimos - promedio ponderado
                 score = entregaNum * pesoEntrega + defensaNum * pesoDefensa;
                 explanation = `Entrega ≥5 y Defensa ≥4: Se calcula promedio ponderado (${entregaNum} × ${pesoEntrega} + ${defensaNum} × ${pesoDefensa} = ${score.toFixed(1)})`;
             } else if (entregaNum < 5 && defensaNum >= 4) {
-                // Caso 2: Entrega no supera mínimo pero defensa sí
                 score = entregaNum;
                 explanation = `Entrega <5 y Defensa ≥4: Se toma la nota de entrega (${entregaNum})`;
             } else if (entregaNum >= 5 && defensaNum < 4) {
-                // Caso 3: Entrega supera mínimo pero defensa no
                 score = defensaNum;
                 explanation = `Entrega ≥5 y Defensa <4: Se toma la nota de defensa (${defensaNum})`;
             } else {
-                // Caso 4: Ninguna supera mínimos - promedio ponderado
                 score = entregaNum * pesoEntrega + defensaNum * pesoDefensa;
                 explanation = `Entrega <5 y Defensa <4: Se calcula promedio ponderado (${entregaNum} × ${pesoEntrega} + ${defensaNum} × ${pesoDefensa} = ${score.toFixed(1)})`;
             }
 
-            return { score: score, explanation: explanation };
+            return { score: roundToOneDecimal(score), explanation: explanation };
         }
 
         function calculateIndividual(convocatoria) {
@@ -596,15 +639,14 @@
                 notasIndividual[convocatoria].parte2 = null;
             }
 
-            // Calcular total
+            // Calcular total: parte1 * 0.5 + parte2 * 0.5
             if (notasIndividual[convocatoria].parte1 !== null && notasIndividual[convocatoria].parte2 !== null) {
                 const total = (notasIndividual[convocatoria].parte1 * 0.5 + notasIndividual[convocatoria].parte2 * 0.5);
-                notasIndividual[convocatoria].total = Math.round(total * 10) / 10;
+                notasIndividual[convocatoria].total = roundToOneDecimal(total);
 
                 const totalElement = document.getElementById(`${prefix}-total`);
                 totalElement.textContent = notasIndividual[convocatoria].total.toFixed(1);
 
-                // Aplicar color según aprobación
                 if (notasIndividual[convocatoria].total >= 5) {
                     totalElement.className = 'total-value aprobado';
                 } else {
@@ -613,13 +655,11 @@
 
                 updateMessage('individual', convocatoria);
             } else {
-                // Si no hay datos suficientes, volver al estado inicial (azul claro)
                 const totalElement = document.getElementById(`${prefix}-total`);
                 totalElement.textContent = '--';
                 totalElement.className = 'total-value';
             }
 
-            // Si estamos en ordinaria, actualizar extraordinaria
             if (convocatoria === 'ordinaria') {
                 updateExtraordinaria('individual');
             }
@@ -653,15 +693,14 @@
                 notasGrupal[convocatoria].parte2 = null;
             }
 
-            // Calcular total - Para grupal: Parte1 40%, Parte2 60%
+            // Calcular total: parte1 * 0.5 + parte2 * 0.5
             if (notasGrupal[convocatoria].parte1 !== null && notasGrupal[convocatoria].parte2 !== null) {
-                const total = (notasGrupal[convocatoria].parte1 * 0.4 + notasGrupal[convocatoria].parte2 * 0.6);
-                notasGrupal[convocatoria].total = Math.round(total * 10) / 10;
+                const total = (notasGrupal[convocatoria].parte1 * 0.5 + notasGrupal[convocatoria].parte2 * 0.5);
+                notasGrupal[convocatoria].total = roundToOneDecimal(total);
 
                 const totalElement = document.getElementById(`${prefix}-total`);
                 totalElement.textContent = notasGrupal[convocatoria].total.toFixed(1);
 
-                // Aplicar color según aprobación
                 if (notasGrupal[convocatoria].total >= 5) {
                     totalElement.className = 'total-value aprobado';
                 } else {
@@ -670,13 +709,11 @@
 
                 updateMessage('grupal', convocatoria);
             } else {
-                // Si no hay datos suficientes, volver al estado inicial (azul claro)
                 const totalElement = document.getElementById(`${prefix}-total`);
                 totalElement.textContent = '--';
                 totalElement.className = 'total-value';
             }
 
-            // Si estamos en ordinaria, actualizar extraordinaria
             if (convocatoria === 'ordinaria') {
                 updateExtraordinaria('grupal');
             }
@@ -694,7 +731,6 @@
             } else {
                 let pendingActivities = [];
 
-                // Verificar qué actividades están pendientes para extraordinaria
                 if (convocatoria === 'ordinaria') {
                     if (notas.ordinaria.parte1 < 5) {
                         pendingActivities.push('Actividades 1 y 2');
@@ -715,12 +751,10 @@
             const prefix = type === 'individual' ? 'ind' : 'grp';
             const notas = type === 'individual' ? notasIndividual : notasGrupal;
 
-            // Solo proceder si tenemos nota total de ordinaria
             if (notas.ordinaria.total === null) return;
 
             // Si apruebas en ordinaria, no necesitas extraordinaria
             if (notas.ordinaria.total >= 5) {
-                // Deshabilitar todos los campos de extraordinaria
                 const extInputs = [`${prefix}-ext-act1`, `${prefix}-ext-act2`, `${prefix}-ext-act3`, `${prefix}-ext-act4`];
                 extInputs.forEach(id => {
                     const input = document.getElementById(id);
@@ -729,7 +763,6 @@
                     input.value = '';
                 });
 
-                // Copiar nota de ordinaria a extraordinaria con color aprobado
                 const totalElement = document.getElementById(`${prefix}-ext-total`);
                 totalElement.textContent = notas.ordinaria.total.toFixed(1);
                 totalElement.className = 'total-value aprobado';
@@ -741,17 +774,18 @@
                 return;
             }
 
-            // Si suspendes en ordinaria, habilitar solo las actividades necesarias
+            // Gestionar partes aprobadas/suspensas en extraordinaria
 
-            // Parte 1: Si aprobaste la parte 1 en ordinaria, bloquear actividades 1 y 2
+            // Parte 1: Si aprobaste la parte 1 en ordinaria
             if (notas.ordinaria.parte1 >= 5) {
+                // Bloquear campos y mostrar nota
                 document.getElementById(`${prefix}-ext-act1`).disabled = true;
                 document.getElementById(`${prefix}-ext-act1`).style.backgroundColor = '#e0e0e0';
-                document.getElementById(`${prefix}-ext-act1`).value = '';
+                document.getElementById(`${prefix}-ext-act1`).value = notas.ordinaria.parte1.toFixed(1);
 
                 document.getElementById(`${prefix}-ext-act2`).disabled = true;
                 document.getElementById(`${prefix}-ext-act2`).style.backgroundColor = '#e0e0e0';
-                document.getElementById(`${prefix}-ext-act2`).value = '';
+                document.getElementById(`${prefix}-ext-act2`).value = notas.ordinaria.parte1.toFixed(1);
 
                 // Usar la nota de ordinaria para esta parte
                 notas.extraordinaria.parte1 = notas.ordinaria.parte1;
@@ -765,15 +799,16 @@
                 document.getElementById(`${prefix}-ext-act2`).style.backgroundColor = '';
             }
 
-            // Parte 2: Si aprobaste la parte 2 en ordinaria, bloquear actividades 3 y 4
+            // Parte 2: Si aprobaste la parte 2 en ordinaria
             if (notas.ordinaria.parte2 >= 5) {
+                // Bloquear campos y mostrar nota
                 document.getElementById(`${prefix}-ext-act3`).disabled = true;
                 document.getElementById(`${prefix}-ext-act3`).style.backgroundColor = '#e0e0e0';
-                document.getElementById(`${prefix}-ext-act3`).value = '';
+                document.getElementById(`${prefix}-ext-act3`).value = notas.ordinaria.parte2.toFixed(1);
 
                 document.getElementById(`${prefix}-ext-act4`).disabled = true;
                 document.getElementById(`${prefix}-ext-act4`).style.backgroundColor = '#e0e0e0';
-                document.getElementById(`${prefix}-ext-act4`).value = '';
+                document.getElementById(`${prefix}-ext-act4`).value = notas.ordinaria.parte2.toFixed(1);
 
                 // Usar la nota de ordinaria para esta parte
                 notas.extraordinaria.parte2 = notas.ordinaria.parte2;
@@ -787,21 +822,12 @@
                 document.getElementById(`${prefix}-ext-act4`).style.backgroundColor = '';
             }
 
-            // Resetear el total de extraordinaria a estado inicial
-            const totalElementExt = document.getElementById(`${prefix}-ext-total`);
-            totalElementExt.textContent = '--';
-            totalElementExt.className = 'total-value';
-
-            // Recalcular el total de extraordinaria si tenemos ambas partes
+            // Calcular total de extraordinaria si tenemos ambas partes
             if (notas.extraordinaria.parte1 !== null && notas.extraordinaria.parte2 !== null) {
-                if (type === 'individual') {
-                    const total = (notas.extraordinaria.parte1 * 0.5 + notas.extraordinaria.parte2 * 0.5);
-                    notas.extraordinaria.total = Math.round(total * 10) / 10;
-                } else {
-                    const total = (notas.extraordinaria.parte1 * 0.4 + notas.extraordinaria.parte2 * 0.6);
-                    notas.extraordinaria.total = Math.round(total * 10) / 10;
-                }
+                const total = (notas.extraordinaria.parte1 * 0.5 + notas.extraordinaria.parte2 * 0.5);
+                notas.extraordinaria.total = roundToOneDecimal(total);
 
+                const totalElementExt = document.getElementById(`${prefix}-ext-total`);
                 totalElementExt.textContent = notas.extraordinaria.total.toFixed(1);
 
                 if (notas.extraordinaria.total >= 5) {
@@ -811,6 +837,11 @@
                 }
 
                 updateMessage(type, 'extraordinaria');
+            } else {
+                // Resetear el total de extraordinaria a estado inicial
+                const totalElementExt = document.getElementById(`${prefix}-ext-total`);
+                totalElementExt.textContent = '--';
+                totalElementExt.className = 'total-value';
             }
         }
     </script>
