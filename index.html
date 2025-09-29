@@ -307,28 +307,6 @@
         padding: 7px 12px !important;
         border-radius: 4px !important;
     }
-    @media (max-width: 600px) {
-    /* ...otros estilos responsive... */
-    .activity-row {
-        flex-direction: column;
-        align-items: stretch !important;
-        gap: 2px;
-    }
-    .activity-label, .peso-text {
-        font-size: 12px !important;
-        min-width: unset !important;
-        text-align: left !important;
-        margin-bottom: 3px !important;
-        margin-right: 0 !important;
-    }
-    .peso-text {
-        text-align: right !important;
-        margin-bottom: 0 !important;
-        margin-left: auto !important;
-        margin-right: 0 !important;
-        display: block !important;
-        padding-right: 4px !important;
-    }
     </style>
 </head>
 <body>
@@ -356,13 +334,13 @@
                 <h3>Convocatoria Ordinaria</h3>
                 <div class="activities-container">
                     <div class="activity-pair">
-                        <div class="activity-row">
-                            <span class="activity-label">Actividad 1 (Entrega):</span>
-                            <input type="text" class="activity-input" id="ind-ord-act1" 
-                                   oninput="validateInput(this); calculateIndividual('ordinaria')"
-                                   placeholder="0.0">
-                            <span class="peso-text">Peso: 30%</span>
-                        </div>
+                       <div class="activity-row">
+                            <span class="activity-label">
+                                Actividad 1 (Entrega)
+                                <span class="peso-text">Peso: 30%</span>
+                            </span>
+                            <input ... >
+                    </div>
                         <div class="activity-row">
                             <span class="activity-label">Actividad 2 (Defensa):</span>
                             <input type="text" class="activity-input" id="ind-ord-act2" 
