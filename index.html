@@ -334,13 +334,13 @@
                 <h3>Convocatoria Ordinaria</h3>
                 <div class="activities-container">
                     <div class="activity-pair">
-                       <div class="activity-row">
-                            <span class="activity-label">
-                                Actividad 1 (Entrega)
-                                <span class="peso-text">Peso: 30%</span>
-                            </span>
-                            <input ... >
-                    </div>
+                      <div class="activity-row">
+                            <span class="activity-label">Actividad 1 (Entrega):</span>
+                            <input type="text" class="activity-input" id="ind-ord-act1" 
+                                   oninput="validateInput(this); calculateIndividual('ordinaria')"
+                                   placeholder="0.0">
+                            <span class="peso-text">Peso: 30%</span>
+                        </div>
                         <div class="activity-row">
                             <span class="activity-label">Actividad 2 (Defensa):</span>
                             <input type="text" class="activity-input" id="ind-ord-act2" 
