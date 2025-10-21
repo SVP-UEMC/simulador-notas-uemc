@@ -751,9 +751,9 @@
                 notasGrupal[convocatoria].parte2 = null;
             }
 
-            // Calcular total: parte1 * 0.5 + parte2 * 0.5
+            // Calcular total: parte1 * 0.4 + parte2 * 0.6
             if (notasGrupal[convocatoria].parte1 !== null && notasGrupal[convocatoria].parte2 !== null) {
-                const total = (notasGrupal[convocatoria].parte1 * 0.5 + notasGrupal[convocatoria].parte2 * 0.5);
+                const total = (notasGrupal[convocatoria].parte1 * 0.4 + notasGrupal[convocatoria].parte2 * 0.6);
                 notasGrupal[convocatoria].total = roundToOneDecimal(total);
 
                 const totalElement = document.getElementById(`${prefix}-total`);
